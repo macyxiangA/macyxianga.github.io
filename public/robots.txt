@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://macyxianga.github.io/sitemap.xml
