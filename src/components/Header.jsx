@@ -12,6 +12,7 @@ function getInitialTheme() {
 
 function Header({ lang, setLang, labels }) {
   const [theme, setTheme] = useState(getInitialTheme)
+  const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme
@@ -26,21 +27,48 @@ function Header({ lang, setLang, labels }) {
     { label: labels.contact, href: '#contact' },
   ]
 
+  const toggleLanguage = () => {
+    setLang(lang === 'en' ? 'zh' : 'en')
+  }
+
+  const toggleTheme = () => {
+    setTheme((current) => (current === 'dark' ? 'light' : 'dark'))
+  }
+
   return (
     <header className="site-header">
       <a className="site-name" href="#home">
         Macy Xiang
       </a>
-      <nav className="site-nav" aria-label="Primary navigation">
+      <button
+        className="menu-toggle"
+        type="button"
+        aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+        aria-expanded={menuOpen}
+        aria-controls="mobile-navigation"
+        onClick={() => setMenuOpen((open) => !open)}
+      >
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+      <nav
+        className={`site-nav ${menuOpen ? 'is-open' : ''}`}
+        id="mobile-navigation"
+        aria-label="Primary navigation"
+      >
         {navItems.map((item) => (
-          <a key={item.href} href={item.href}>
+          <a key={item.href} href={item.href} onClick={() => setMenuOpen(false)}>
             {item.label}
           </a>
         ))}
         <button
           className="text-toggle"
           type="button"
-          onClick={() => setLang(lang === 'en' ? 'zh' : 'en')}
+          onClick={() => {
+            toggleLanguage()
+            setMenuOpen(false)
+          }}
         >
           {labels.language}
         </button>
@@ -48,7 +76,7 @@ function Header({ lang, setLang, labels }) {
           className="theme-toggle"
           type="button"
           aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-          onClick={() => setTheme((current) => (current === 'dark' ? 'light' : 'dark'))}
+          onClick={toggleTheme}
         >
           <span aria-hidden="true">{theme === 'dark' ? '☀' : '●'}</span>
         </button>

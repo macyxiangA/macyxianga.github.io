@@ -55,6 +55,10 @@
   padding: 0;
 }
 
+.menu-toggle {
+  display: none;
+}
+
 .page {
   width: min(var(--max-width), calc(100% - 40px));
   margin: 0 auto;
@@ -334,18 +338,67 @@ h3 {
   max-width: 620px;
 }
 
-@media (max-width: 780px) {
+@media (max-width: 768px) {
   .site-header {
-    position: static;
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 12px;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0;
     padding: 16px 20px;
   }
 
+  .menu-toggle {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    width: 34px;
+    height: 34px;
+    margin-left: auto;
+    padding: 0;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--surface);
+    cursor: pointer;
+  }
+
+  .menu-toggle span {
+    width: 16px;
+    height: 2px;
+    margin: 0 auto;
+    border-radius: 999px;
+    background: var(--text);
+  }
+
   .site-nav {
+    display: none;
+    flex-basis: 100%;
+    flex-direction: column;
+    align-items: flex-start;
     justify-content: flex-start;
-    gap: 12px 16px;
+    gap: 0;
+    margin-top: 14px;
+    padding: 10px 0;
+    border-top: 1px solid var(--soft-border);
+    background: var(--bg);
+  }
+
+  .site-nav.is-open {
+    display: flex;
+  }
+
+  .site-nav a,
+  .site-nav .text-toggle,
+  .site-nav .theme-toggle {
+    width: 100%;
+    padding: 9px 0;
+    text-align: left;
+  }
+
+  .site-nav .theme-toggle {
+    display: inline-flex;
+    justify-content: flex-start;
+    height: auto;
   }
 
   .page {
